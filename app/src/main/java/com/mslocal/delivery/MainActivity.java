@@ -12,11 +12,11 @@ import android.widget.*;
 import java.net.URLEncoder;
 
 public class MainActivity extends Activity {
-  final int green=Color.rgb(0,112,53), pale=Color.rgb(237,249,240), ink=Color.rgb(22,48,33);
+  final int green=Color.rgb(0,105,58), pale=Color.rgb(245,249,246), ink=Color.rgb(19,48,36);
   boolean tamil=true;
-  final String[] en={"Grocery","Vegetables","Hotel Food","Medicine","Parcel","Meat"};
-  final String[] ta={"மளிகை பொருட்கள்","காய்கறிகள்","ஹோட்டல் உணவு","மருந்து","பார்சல்","இறைச்சி"};
-  final int[] pics={R.drawable.grocery,R.drawable.vegetables,R.drawable.food,R.drawable.medicine,R.drawable.parcel,R.drawable.meat};
+  final String[] en={"Grocery","Vegetables","Hotel Food","Medicine","Parcel","Meat","Chicken","Fish","Mutton"};
+  final String[] ta={"மளிகை பொருட்கள்","காய்கறிகள்","ஹோட்டல் உணவு","மருந்து","பார்சல்","இறைச்சி","கோழி இறைச்சி","மீன்","ஆட்டு இறைச்சி"};
+  final int[] pics={R.drawable.grocery,R.drawable.vegetables,R.drawable.food,R.drawable.medicine,R.drawable.parcel,R.drawable.meat,R.drawable.chicken,R.drawable.fish,R.drawable.mutton};
   LinearLayout root;
   int dp(float n){return (int)(n*getResources().getDisplayMetrics().density+0.5f);}
   GradientDrawable bg(int color,int radius){GradientDrawable d=new GradientDrawable();d.setColor(color);d.setCornerRadius(dp(radius));return d;}
@@ -26,32 +26,33 @@ public class MainActivity extends Activity {
   void gap(LinearLayout l,int h){View v=new View(this);l.addView(v,lp(1,h));}
   @Override public void onCreate(Bundle b){super.onCreate(b);render();}
   void render(){
-    ScrollView scroll=new ScrollView(this);scroll.setFillViewport(true);scroll.setBackgroundColor(Color.WHITE);
-    root=vertical();root.setPadding(dp(18),dp(24),dp(18),dp(24));scroll.addView(root);setContentView(scroll);
-    LinearLayout header=vertical();header.setPadding(dp(18),dp(22),dp(18),dp(22));header.setBackground(new GradientDrawable(GradientDrawable.Orientation.TL_BR,new int[]{green,Color.rgb(25,158,78)}));
-    TextView top=text("🛵  M S LOCAL DELIVERY",25,Color.WHITE,true);header.addView(top);
-    gap(header,8);header.addView(text(tamil?"இளையான்குடி மற்றும் அருகிலுள்ள கிராமங்கள்":"Ilaiyangudi & nearby villages",15,Color.WHITE,false));
+    ScrollView scroll=new ScrollView(this);scroll.setFillViewport(true);scroll.setBackgroundColor(Color.rgb(250,252,250));
+    root=vertical();root.setPadding(dp(16),dp(20),dp(16),dp(24));scroll.addView(root);setContentView(scroll);
+    LinearLayout header=vertical();header.setPadding(dp(20),dp(26),dp(20),dp(24));header.setBackground(new GradientDrawable(GradientDrawable.Orientation.TL_BR,new int[]{green,Color.rgb(25,158,78)}));
+    TextView top=text("M S  LOCAL DELIVERY",24,Color.WHITE,true);header.addView(top);
+    gap(header,12);header.addView(text(tamil?"இளையான்குடி மற்றும் அருகிலுள்ள கிராமங்கள்":"Ilaiyangudi & nearby villages",15,Color.WHITE,false));
     gap(header,10);TextView hours=text(tamil?"🕒  சேவை நேரம்: காலை 6:00 முதல் இரவு 10:00 வரை":"🕒  Service Hours: 6:00 AM – 10:00 PM",14,Color.WHITE,true);header.addView(hours);
     gap(header,12);TextView change=text(tamil?"English  /  தமிழ்":"தமிழ்  /  English",14,Color.WHITE,true);change.setOnClickListener(v->{tamil=!tamil;render();});header.addView(change);header.setBackground(new GradientDrawable(GradientDrawable.Orientation.TL_BR,new int[]{green,Color.rgb(19,149,76)}){{setCornerRadius(dp(22));}});root.addView(header,lp(-1,-2));
-    gap(root,20);root.addView(text(tamil?"என்ன தேவை?":"What do you need?",23,ink,true));gap(root,12);
+    gap(root,22);root.addView(text(tamil?"உங்கள் தேவைகள், எங்கள் சேவை":"Everything you need, delivered",21,ink,true));gap(root,6);root.addView(text(tamil?"பிரிவைத் தேர்ந்தெடுத்து WhatsApp மூலம் ஆர்டர் செய்யுங்கள்":"Choose a category and order via WhatsApp",13,Color.DKGRAY,false));gap(root,16);
     for(int row=0;row<(en.length+1)/2;row++){
+      if(row==3){gap(root,10);root.addView(text(tamil?"இறைச்சி வகைகள்":"Fresh meat & seafood",20,ink,true));gap(root,12);}
       LinearLayout line=new LinearLayout(this);line.setOrientation(0);
       for(int col=0;col<2;col++){
         int i=row*2+col;if(i>=en.length)break;
-        LinearLayout card=vertical();card.setPadding(dp(8),dp(8),dp(8),dp(12));card.setBackground(bg(pale,16));
-        ImageView img=new ImageView(this);img.setImageResource(pics[i]);img.setScaleType(ImageView.ScaleType.CENTER_CROP);card.addView(img,lp(-1,92));gap(card,8);
-        TextView title=text(en[i],17,ink,true);title.setGravity(Gravity.CENTER);card.addView(title);
-        TextView subtitle=text(ta[i],13,green,false);subtitle.setGravity(Gravity.CENTER);card.addView(subtitle);
+        LinearLayout card=vertical();card.setPadding(dp(7),dp(7),dp(7),dp(14));card.setBackground(bg(Color.WHITE,20));card.setElevation(dp(3));
+        ImageView img=new ImageView(this);img.setImageResource(pics[i]);img.setScaleType(ImageView.ScaleType.CENTER_CROP);img.setBackground(bg(pale,15));img.setClipToOutline(true);card.addView(img,lp(-1,120));gap(card,10);
+        TextView title=text(en[i],16,ink,true);title.setGravity(Gravity.CENTER);card.addView(title);
+        TextView subtitle=text(ta[i],12,green,false);subtitle.setGravity(Gravity.CENTER);card.addView(subtitle);
         final int index=i;card.setOnClickListener(v->order(index));
-        LinearLayout.LayoutParams cp=new LinearLayout.LayoutParams(0,-2,1);cp.setMargins(dp(4),0,dp(4),dp(10));line.addView(card,cp);
+        LinearLayout.LayoutParams cp=new LinearLayout.LayoutParams(0,-2,1);cp.setMargins(dp(4),dp(2),dp(4),dp(14));line.addView(card,cp);
       }root.addView(line,lp(-1,-2));
     }
-    gap(root,6);TextView whatsapp=button(tamil?"WhatsApp மூலம் ஆர்டர் செய்யவும்":"Order on WhatsApp",green);root.addView(whatsapp,lp(-1,54));whatsapp.setOnClickListener(v->order(-1));
+    gap(root,14);TextView whatsapp=button(tamil?"WhatsApp மூலம் ஆர்டர் செய்யவும்":"Order on WhatsApp",green);root.addView(whatsapp,lp(-1,54));whatsapp.setOnClickListener(v->order(-1));
     gap(root,12);TextView call=button(tamil?"📞  அழைக்கவும்: 8807169133":"📞  Call: 8807169133",ink);root.addView(call,lp(-1,48));call.setOnClickListener(v->startActivity(new Intent(Intent.ACTION_DIAL,Uri.parse("tel:8807169133"))));
-    gap(root,16);TextView info=text("💵  Cash on Delivery     •     UPI",15,green,true);info.setGravity(Gravity.CENTER);root.addView(info);
+    gap(root,16);TextView info=text("💵  Cash on Delivery     •     UPI",15,green,true);info.setGravity(Gravity.CENTER);root.addView(info);gap(root,10);TextView footer=text(tamil?"📍 இளையான்குடி மற்றும் சுற்றியுள்ள கிராமங்கள்":"📍 Ilaiyangudi and nearby villages",13,green,true);footer.setGravity(Gravity.CENTER);root.addView(footer);
     gap(root,10);TextView note=text(tamil?"விலை மற்றும் டெலிவரி கட்டணம் WhatsApp-ல் உறுதி செய்யப்படும்.":"Prices and delivery charges are confirmed on WhatsApp.",13,Color.DKGRAY,false);note.setGravity(Gravity.CENTER);root.addView(note);
   }
-  TextView button(String s,int color){TextView t=text(s,17,Color.WHITE,true);t.setGravity(Gravity.CENTER);t.setBackground(bg(color,15));return t;}
+  TextView button(String s,int color){TextView t=text(s,17,Color.WHITE,true);t.setGravity(Gravity.CENTER);t.setBackground(bg(color,18));t.setElevation(dp(2));return t;}
   EditText field(String hint,boolean multiline){EditText e=new EditText(this);e.setTextSize(15);e.setHint(hint);e.setSingleLine(!multiline);if(multiline){e.setMinLines(2);e.setGravity(Gravity.TOP);}return e;}
   void order(int index){
     LinearLayout form=vertical();form.setPadding(dp(16),dp(8),dp(16),0);
