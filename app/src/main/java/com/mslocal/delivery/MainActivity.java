@@ -14,9 +14,9 @@ import java.net.URLEncoder;
 public class MainActivity extends Activity {
   final int green=Color.rgb(0,105,58), pale=Color.rgb(245,249,246), ink=Color.rgb(19,48,36);
   boolean tamil=true;
-  final String[] en={"Grocery","Vegetables","Hotel Food","Medicine","Parcel","Meat","Chicken","Fish","Mutton"};
-  final String[] ta={"மளிகை பொருட்கள்","காய்கறிகள்","ஹோட்டல் உணவு","மருந்து","பார்சல்","இறைச்சி","கோழி இறைச்சி","மீன்","ஆட்டு இறைச்சி"};
-  final int[] pics={R.drawable.grocery,R.drawable.vegetables,R.drawable.food,R.drawable.medicine,R.drawable.parcel,R.drawable.meat,R.drawable.chicken,R.drawable.fish,R.drawable.mutton};
+  final String[] en={"Grocery","Vegetables","Hotel Food","Medicine","Parcel","Chicken","Fish","Mutton"};
+  final String[] ta={"மளிகை பொருட்கள்","காய்கறிகள்","ஹோட்டல் உணவு","மருந்து","பார்சல்","கோழி இறைச்சி","மீன்","ஆட்டு இறைச்சி"};
+  final int[] pics={R.drawable.grocery,R.drawable.vegetables,R.drawable.food,R.drawable.medicine,R.drawable.parcel,R.drawable.chicken,R.drawable.fish,R.drawable.mutton};
   LinearLayout root;
   int dp(float n){return (int)(n*getResources().getDisplayMetrics().density+0.5f);}
   GradientDrawable bg(int color,int radius){GradientDrawable d=new GradientDrawable();d.setColor(color);d.setCornerRadius(dp(radius));return d;}
@@ -34,11 +34,11 @@ public class MainActivity extends Activity {
     gap(header,10);TextView hours=text(tamil?"🕒  சேவை நேரம்: காலை 6:00 முதல் இரவு 10:00 வரை":"🕒  Service Hours: 6:00 AM – 10:00 PM",14,Color.WHITE,true);header.addView(hours);
     gap(header,12);TextView change=text(tamil?"English  /  தமிழ்":"தமிழ்  /  English",14,Color.WHITE,true);change.setOnClickListener(v->{tamil=!tamil;render();});header.addView(change);header.setBackground(new GradientDrawable(GradientDrawable.Orientation.TL_BR,new int[]{green,Color.rgb(19,149,76)}){{setCornerRadius(dp(22));}});root.addView(header,lp(-1,-2));
     gap(root,22);root.addView(text(tamil?"உங்கள் தேவைகள், எங்கள் சேவை":"Everything you need, delivered",21,ink,true));gap(root,6);root.addView(text(tamil?"பிரிவைத் தேர்ந்தெடுத்து WhatsApp மூலம் ஆர்டர் செய்யுங்கள்":"Choose a category and order via WhatsApp",13,Color.DKGRAY,false));gap(root,16);
-    for(int row=0;row<(en.length+1)/2;row++){
+    for(int row=0;row<5;row++){
       if(row==3){gap(root,10);root.addView(text(tamil?"இறைச்சி வகைகள்":"Fresh meat & seafood",20,ink,true));gap(root,12);}
       LinearLayout line=new LinearLayout(this);line.setOrientation(0);
       for(int col=0;col<2;col++){
-        int i=row*2+col;if(i>=en.length)break;
+        int i=row<3?row*2+col:row*2+col-1;if((row==2 && col==1)||i>=en.length)break;
         LinearLayout card=vertical();card.setPadding(dp(7),dp(7),dp(7),dp(14));card.setBackground(bg(Color.WHITE,20));card.setElevation(dp(3));
         ImageView img=new ImageView(this);img.setImageResource(pics[i]);img.setScaleType(ImageView.ScaleType.CENTER_CROP);img.setBackground(bg(pale,15));img.setClipToOutline(true);card.addView(img,lp(-1,120));gap(card,10);
         TextView title=text(en[i],16,ink,true);title.setGravity(Gravity.CENTER);card.addView(title);
