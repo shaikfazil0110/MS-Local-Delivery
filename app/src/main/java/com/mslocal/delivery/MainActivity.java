@@ -14,9 +14,9 @@ import java.net.URLEncoder;
 public class MainActivity extends Activity {
   final int green=Color.rgb(0,112,53), pale=Color.rgb(237,249,240), ink=Color.rgb(22,48,33);
   boolean tamil=true;
-  final String[] en={"Grocery","Vegetables","Hotel Food","Medicine","Parcel"};
-  final String[] ta={"மளிகை பொருட்கள்","காய்கறிகள்","ஹோட்டல் உணவு","மருந்து","பார்சல்"};
-  final int[] pics={R.drawable.grocery,R.drawable.vegetables,R.drawable.food,R.drawable.medicine,R.drawable.parcel};
+  final String[] en={"Grocery","Vegetables","Hotel Food","Medicine","Parcel","Meat"};
+  final String[] ta={"மளிகை பொருட்கள்","காய்கறிகள்","ஹோட்டல் உணவு","மருந்து","பார்சல்","இறைச்சி"};
+  final int[] pics={R.drawable.grocery,R.drawable.vegetables,R.drawable.food,R.drawable.medicine,R.drawable.parcel,R.drawable.meat};
   LinearLayout root;
   int dp(float n){return (int)(n*getResources().getDisplayMetrics().density+0.5f);}
   GradientDrawable bg(int color,int radius){GradientDrawable d=new GradientDrawable();d.setColor(color);d.setCornerRadius(dp(radius));return d;}
@@ -34,10 +34,10 @@ public class MainActivity extends Activity {
     gap(header,10);TextView hours=text(tamil?"🕒  சேவை நேரம்: காலை 6:00 முதல் இரவு 10:00 வரை":"🕒  Service Hours: 6:00 AM – 10:00 PM",14,Color.WHITE,true);header.addView(hours);
     gap(header,12);TextView change=text(tamil?"English  /  தமிழ்":"தமிழ்  /  English",14,Color.WHITE,true);change.setOnClickListener(v->{tamil=!tamil;render();});header.addView(change);header.setBackground(new GradientDrawable(GradientDrawable.Orientation.TL_BR,new int[]{green,Color.rgb(19,149,76)}){{setCornerRadius(dp(22));}});root.addView(header,lp(-1,-2));
     gap(root,20);root.addView(text(tamil?"என்ன தேவை?":"What do you need?",23,ink,true));gap(root,12);
-    for(int row=0;row<3;row++){
+    for(int row=0;row<(en.length+1)/2;row++){
       LinearLayout line=new LinearLayout(this);line.setOrientation(0);
       for(int col=0;col<2;col++){
-        int i=row*2+col;if(i>=5)break;
+        int i=row*2+col;if(i>=en.length)break;
         LinearLayout card=vertical();card.setPadding(dp(8),dp(8),dp(8),dp(12));card.setBackground(bg(pale,16));
         ImageView img=new ImageView(this);img.setImageResource(pics[i]);img.setScaleType(ImageView.ScaleType.CENTER_CROP);card.addView(img,lp(-1,92));gap(card,8);
         TextView title=text(en[i],17,ink,true);title.setGravity(Gravity.CENTER);card.addView(title);
