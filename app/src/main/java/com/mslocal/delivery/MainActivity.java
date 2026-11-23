@@ -31,6 +31,7 @@ public class MainActivity extends Activity {
     LinearLayout header=vertical();header.setPadding(dp(18),dp(22),dp(18),dp(22));header.setBackground(new GradientDrawable(GradientDrawable.Orientation.TL_BR,new int[]{green,Color.rgb(25,158,78)}));
     TextView top=text("🛵  M S LOCAL DELIVERY",25,Color.WHITE,true);header.addView(top);
     gap(header,8);header.addView(text(tamil?"இளையான்குடி மற்றும் அருகிலுள்ள கிராமங்கள்":"Ilaiyangudi & nearby villages",15,Color.WHITE,false));
+    gap(header,10);TextView hours=text(tamil?"🕒  சேவை நேரம்: காலை 6:00 முதல் இரவு 10:00 வரை":"🕒  Service Hours: 6:00 AM – 10:00 PM",14,Color.WHITE,true);header.addView(hours);
     gap(header,12);TextView change=text(tamil?"English  /  தமிழ்":"தமிழ்  /  English",14,Color.WHITE,true);change.setOnClickListener(v->{tamil=!tamil;render();});header.addView(change);header.setBackground(new GradientDrawable(GradientDrawable.Orientation.TL_BR,new int[]{green,Color.rgb(19,149,76)}){{setCornerRadius(dp(22));}});root.addView(header,lp(-1,-2));
     gap(root,20);root.addView(text(tamil?"என்ன தேவை?":"What do you need?",23,ink,true));gap(root,12);
     for(int row=0;row<3;row++){
@@ -65,7 +66,7 @@ public class MainActivity extends Activity {
       if(name.getText().toString().trim().isEmpty()||phone.getText().toString().trim().isEmpty()||address.getText().toString().trim().isEmpty()||items.getText().toString().trim().isEmpty()){
         Toast.makeText(this,tamil?"அனைத்து விவரங்களையும் நிரப்பவும்":"Please fill all fields",Toast.LENGTH_SHORT).show();return;
       }
-      String message="🛵 M S LOCAL DELIVERY\nNew Order\n\nCategory: "+category+"\nCustomer: "+name.getText()+"\nPhone: "+phone.getText()+"\nAddress: "+address.getText()+"\nItems / Requirements: "+items.getText()+"\n\nPlease confirm price and delivery charge.";
+      String message="🛵 M S LOCAL DELIVERY\nNew Order\n\nCategory: "+category+"\nCustomer: "+name.getText()+"\nPhone: "+phone.getText()+"\nAddress: "+address.getText()+"\nItems / Requirements: "+items.getText()+"\n\nService Hours: 6:00 AM - 10:00 PM (Daily)\nPlease confirm price and delivery charge.";
       try {String url="https://wa.me/918807169133?text="+URLEncoder.encode(message,"UTF-8");startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(url)));dialog.dismiss();}
       catch(Exception ex){Toast.makeText(this,"Unable to open WhatsApp link",Toast.LENGTH_LONG).show();}
     });
